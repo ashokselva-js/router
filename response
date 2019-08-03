@@ -1,0 +1,47 @@
+package com.lnt.empanelment.rest.utils;
+
+import java.io.Serializable;
+
+import lombok.Data;
+/**
+ * 
+ * @author ASHOK SELVA
+ *
+ */
+
+@Data
+public class EmpanelmentResponse implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4406151285832659708L;
+
+	public EmpanelmentResponse(Object response, String failureMessage, String status, String errorCode,
+			String createdAt) {
+		super();
+		this.response = response;
+		this.failureMessage = failureMessage;
+		this.status = status;
+		this.errorCode = errorCode;
+		this.createdAt = createdAt;
+	}
+	
+	public EmpanelmentResponse(Object response, String failureMessage, String status, String createdAt) {
+		super();
+		this.response = response;
+		this.failureMessage = failureMessage;
+		this.status = status;
+		this.createdAt = createdAt;
+	}
+	
+	private Object response;
+	
+	private String failureMessage;
+
+	private String status;
+	
+	private String errorCode;
+	
+	private String createdAt;
+}
