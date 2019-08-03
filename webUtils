@@ -1,0 +1,61 @@
+package com.lnt.empanelment.rest.utils;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.lnt.empanelment.rest.response.EmpaneledVendorsListItems;
+import com.lnt.empanelment.rest.response.EmpaneledVendorsResponse;
+
+/**
+ * 
+ * @author ASHOK SELVA
+ *
+ */
+public class EmpanelmentWebUtils {
+
+	
+	
+	private EmpanelmentWebUtils() {
+		super();
+	}
+
+	public static ResponseEntity<EmpanelmentResponse> successResponse(Object serviceResponse){
+		EmpanelmentResponse response = new EmpanelmentResponse(serviceResponse,"","SUCCESS",new Date().toString());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	public static ResponseEntity<EmpanelmentResponse> failureResponse(String failureMessage){
+		EmpanelmentResponse response = new EmpanelmentResponse("",failureMessage,"FAILURE",new Date().toString());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	public static ResponseEntity<EmpanelmentResponse> failureResponse(String failureMessage,String errorCode){
+		EmpanelmentResponse response = new EmpanelmentResponse("",failureMessage,"FAILURE",errorCode,new Date().toString());
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	public static EmpanelListResponse listResponse(List<?> responseList) {
+		Integer length=responseList.size();
+
+		return EmpanelListResponse.builder().content(responseList).length(length).build();
+	}
+	
+	public static TableResponse tableResponseList(Object fields,Object items,Pageable pageable){
+		
+		return TableResponse.builder().fields(fields).items(items).pageable(pageable).build();
+	}
+	
+	public static TableResponseWithoutPage tableResponseListWithoutPage(Object fields,Object items){
+		
+		return TableResponseWithoutPage.builder().fields(fields).items(items).build();
+	}
+	
+	public static EmpaneledVendorsResponse getResponseData(Page<EmpaneledVendorsListItems> pages) {
+		return TableResponseUtils.getResponseData(pages);
+	}
+}
